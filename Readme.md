@@ -15,10 +15,10 @@ This enables two-way communication. It helps the person who uses the device to c
 
 
 ## Tech Used
-Node MCU
-Flex Senors
-Firebase
-Flutter
+# Node MCU
+# Flex Senors
+# Firebase
+# Flutter
 
 
 ### Our device is fully compatible with Android, Ios, Windows, MAC, Linux !
