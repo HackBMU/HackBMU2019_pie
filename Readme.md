@@ -1,4 +1,4 @@
-## Project Echo
+# Project Echo
 
 ## Problem
 India is one of the most populous countries in the world with over a billion people living . 
@@ -15,10 +15,10 @@ This enables two-way communication. It helps the person who uses the device to c
 
 
 ## Tech Used
-# Node MCU
-# Flex Senors
-# Firebase
-# Flutter
+#### Node MCU
+#### Flex Senors
+#### Firebase
+#### Flutter
 
 
-### Our device is fully compatible with Android, Ios, Windows, MAC, Linux !
+## Our device is fully compatible with Android, Ios, Windows, MAC, Linux !
