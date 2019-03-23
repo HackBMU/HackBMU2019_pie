@@ -15,10 +15,10 @@ class _DetailScreenState extends State<DetailScreen> {
   FlutterTts flutterTts = new FlutterTts();
   GoogleTranslator translator = GoogleTranslator();
   int index = 0;
-  String char;
+  String char, letter;
   String image = '';
   var current;
-  var _languages = ["English", "French" , "Chinese"];
+  var _languages = ["English", "French" , "Indonesian", "Romanian", "Vietnamese"];
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +40,29 @@ class _DetailScreenState extends State<DetailScreen> {
               character();
             },
           ),
-         image != null ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: 300.0,
-              height: 300.0,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  image: DecorationImage(
-                      image:  AssetImage(image), fit: BoxFit.cover)),
-            ),
-          ) :Container(),
+         Row(
+           children: <Widget>[
+             image != null ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 300.0,
+                  height: 300.0,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      image: DecorationImage(
+                          image:  AssetImage(image), fit: BoxFit.cover)),
+                ),
+              ) : Container(),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: letter != null ? Text(letter, style:TextStyle(
+                  color: Colors.white,
+                  fontWeight:FontWeight.bold,
+                  fontSize: 30
+                )) : Container(),
+              )
+           ],
+         ),
           Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: DropdownButton<String>(
@@ -82,6 +94,7 @@ class _DetailScreenState extends State<DetailScreen> {
       print('Gif is : ${char}');
       setState(() {
         image = char;
+        letter = widget.text[index].toUpperCase();
       });
       ++index;
 
@@ -114,8 +127,8 @@ class _DetailScreenState extends State<DetailScreen> {
             "\n");
         flutterTts.speak(s);
       });
-    } else if (currentLanguage == "Chinese") {
-      translator.translate(data, to: '').then((s) {
+    } else if (currentLanguage == "Indonesian") {
+      translator.translate(data, to: 'id').then((s) {
         print("Source: " +
             data +
             "\n"
@@ -124,8 +137,18 @@ class _DetailScreenState extends State<DetailScreen> {
             "\n");
         flutterTts.speak(s);
       });
-    } else if (currentLanguage == "Sanskrit") {
-      translator.translate(data, to: 'sa').then((s) {
+    } else if (currentLanguage == "Romanian") {
+      translator.translate(data, to: 'ro').then((s) {
+        print("Source: " +
+            data +
+            "\n"
+            "Translated: " +
+            s +
+            "\n");
+        flutterTts.speak(s);
+      });
+    } else if (currentLanguage == "Vietnamese") {
+      translator.translate(data, to: 'vi').then((s) {
         print("Source: " +
             data +
             "\n"

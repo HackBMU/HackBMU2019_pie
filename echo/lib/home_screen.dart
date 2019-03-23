@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var stringsArray = [];
   StringBuffer myString = new StringBuffer(" ");
 
-  var _languages = ["English", "French"];
+  var _languages = ["English", "French" , "Indonesian", "Romanian", "Vietnamese"];
   //var _speech;
 
   var current;
@@ -253,6 +253,9 @@ class _HomeScreenState extends State<HomeScreen> {
       case 'Z':
         return gifContainerWidget('Z');
         break;
+      case 'THANK YOU':
+        return gifContainerWidget('THANK YOU');
+        break;  
       case '.':
         return gifContainerWidget('.');
         break;
@@ -262,7 +265,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget gifContainerWidget(String data) {
+    print('Data is :${data}');
     if (data == " ") {
+      print("INSIDE SPACE IF");
       setState(() {
         myString.write(" ");
       });
@@ -287,7 +292,14 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Container(),
       );
-    } else {
+    } else if(data == "THANK YOU"){
+      print('Inside thank you case');
+        _speak(data, current);
+        // setState(() {
+        //   myString.write(data);
+        // });
+        return Container();
+    }else {
       setState(() {
         myString.write(data);
       });
@@ -329,8 +341,8 @@ class _HomeScreenState extends State<HomeScreen> {
             "\n");
         flutterTts.speak(s);
       });
-    } else if (currentLanguage == "Chinese") {
-      translator.translate(data, to: 'zh').then((s) {
+    } else if (currentLanguage == "Indonesian") {
+      translator.translate(data, to: 'id').then((s) {
         print("Source: " +
             data +
             "\n"
@@ -339,8 +351,18 @@ class _HomeScreenState extends State<HomeScreen> {
             "\n");
         flutterTts.speak(s);
       });
-    } else if (currentLanguage == "Sanskrit") {
-      translator.translate(data, to: 'sa').then((s) {
+    } else if (currentLanguage == "Romanian") {
+      translator.translate(data, to: 'ro').then((s) {
+        print("Source: " +
+            data +
+            "\n"
+            "Translated: " +
+            s +
+            "\n");
+        flutterTts.speak(s);
+      });
+    } else if (currentLanguage == "Vietnamese") {
+      translator.translate(data, to: 'vi').then((s) {
         print("Source: " +
             data +
             "\n"
