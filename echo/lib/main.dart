@@ -1,7 +1,11 @@
 import 'package:echo/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-void main() => runApp(MyApp());
+void main() {
+   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+   runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

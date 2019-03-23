@@ -1,6 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:translator/translator.dart';
 
 class DetailScreen extends StatefulWidget {
   String text;
@@ -11,9 +12,14 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  FlutterTts flutterTts = new FlutterTts();
+  GoogleTranslator translator = GoogleTranslator();
   int index = 0;
   String char;
-  String image = 'assets/A.gif';
+  String image = '';
+  var current;
+  var _languages = ["English", "French" , "Chinese"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +36,11 @@ class _DetailScreenState extends State<DetailScreen> {
           RaisedButton(
             child: Text('press'),
             onPressed: () {
+              
               character();
             },
           ),
-          Padding(
+         image != null ? Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: 300.0,
@@ -41,9 +48,28 @@ class _DetailScreenState extends State<DetailScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   image: DecorationImage(
-                      image: AssetImage(image), fit: BoxFit.cover)),
+                      image:  AssetImage(image), fit: BoxFit.cover)),
             ),
-          )
+          ) :Container(),
+          Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: DropdownButton<String>(
+                items: _languages.map((String dropDownStringItem) {
+                  return DropdownMenuItem<String>(
+                    value: dropDownStringItem,
+                    child: Text(dropDownStringItem),
+                  );
+                }).toList(),
+                onChanged: (String newItemSelected) {
+                  setState(() {
+                    current = newItemSelected;
+                    // translateAndSpeak(data, current);
+                  });
+                },
+                value: current,
+              ),
+            
+            ),
         ],
       ),
     );
@@ -60,10 +86,63 @@ class _DetailScreenState extends State<DetailScreen> {
       ++index;
 
       if (index >= widget.text.length) {
+        _speak(widget.text, current);
+      }
+
+      if (index >= widget.text.length) {
         t.cancel();
       }
     });
 
     return char;
   }
+
+  void _speak(String data, String currentLanguage) async {
+    if(currentLanguage == null) {
+      print("Current Languge Null");
+    }
+    print("Current Language : $currentLanguage");
+    if (currentLanguage == "English") {
+      await flutterTts.speak(data);
+    } else if (currentLanguage == "French") {
+      translator.translate(data, to: 'fr').then((s) {
+        print("Source: " +
+            data +
+            "\n"
+            "Translated: " +
+            s +
+            "\n");
+        flutterTts.speak(s);
+      });
+    } else if (currentLanguage == "Chinese") {
+      translator.translate(data, to: '').then((s) {
+        print("Source: " +
+            data +
+            "\n"
+            "Translated: " +
+            s +
+            "\n");
+        flutterTts.speak(s);
+      });
+    } else if (currentLanguage == "Sanskrit") {
+      translator.translate(data, to: 'sa').then((s) {
+        print("Source: " +
+            data +
+            "\n"
+            "Translated: " +
+            s +
+            "\n");
+        flutterTts.speak(s);
+      });
+    }
+
+
+     flutterTts.getLanguages.then((onValue) {
+       
+       print('Languages list : ${onValue.toString()}');
+     });
+
+  
+  }
+
 }
