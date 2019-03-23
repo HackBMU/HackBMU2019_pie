@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:echo/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -71,9 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _speech.setCurrentLocaleHandler(onCurrentLocale);
     _speech.setRecognitionStartedHandler(onRecognitionStarted);
     _speech.setRecognitionResultHandler(onRecognitionResult);
-   // _speech.setRecognitionCompleteHandler(onRecognitionComplete);
+   _speech.setRecognitionCompleteHandler(onRecognitionComplete);
     
-    //_speech.setErrorHandler(errorHandler);
+   // _speech.setErrorHandler(errorHandler);
     _speech
         .activate()
         .then((res) => setState(() => _speechRecognitionAvailable = res));
@@ -384,15 +385,15 @@ class _HomeScreenState extends State<HomeScreen> {
    
   }
 
-  // void onRecognitionComplete(){
-  //   setState(() {
-  //    _isListening =false; 
-  //   });
-  //    Navigator.push(context, new MaterialPageRoute(
-  //    // builder: ((context) => new DetailScreen(transcription))
-  //    builder: ((context) => new DetailScreen(text: transcription))
-  //   ));
-  // }
+  void onRecognitionComplete(){
+    setState(() {
+     _isListening =false; 
+    });
+     Navigator.push(context, new MaterialPageRoute(
+     // builder: ((context) => new DetailScreen(transcription))
+     builder: ((context) => new DetailScreen(text: transcription))
+    ));
+  }
 
   //void onRecognitionComplete() => setState(() => _isListening = false);
 
