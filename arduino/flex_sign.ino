@@ -138,9 +138,13 @@ Serial.println(" | AcZ = "); Serial.println(AcZ);
 
 
  
-delay(2000); // Wait 0.5 seconds and scan again
+delay(500);
 
-   
+      if (  AcX<-10000&&data > 130 && data1 > 130 && data2 > 130 && data3 > 130 && data4 > 130)
+  { ch = "THANK YOU";
+    String name = Firebase.pushString("logs", ch);
+    delay(2000);
+  } 
       if (  AcY<-8000&&data > 130 && data1 > 130 && data2 > 130 && data3 > 130 && data4 > 130)
   { ch = ".";
     String name = Firebase.pushString("logs", ch);
@@ -186,7 +190,7 @@ delay(2000); // Wait 0.5 seconds and scan again
     String name = Firebase.pushString("logs", ch);
     delay(2000);
   }
-   else if ( AcY<-8000&& data < 140 && data1 < 120 && data2 > 120 && data3 > 120 && data4 > 120)
+   else if ( AcY>-8000&& data < 140 && data1 < 120 && data2 > 120 && data3 > 120 && data4 > 120)
   { ch = "H";
     String name = Firebase.pushString("logs", ch);
     delay(2000);
@@ -201,12 +205,12 @@ delay(2000); // Wait 0.5 seconds and scan again
     String name = Firebase.pushString("logs", ch);
     delay(2000);
   }
-    else if ( AcY>-8000&& data < 140 && data1 < 120 && data2 > 120 && data3 > 120 && data4 > 120)
-  { ch = "K";
-    String name = Firebase.pushString("logs", ch);
-    delay(2000);
-  }
-    else if ( AcY>-8000&& data < 140 && data1 < 120 && data2 < 120 && data3 > 120 && data4 > 120)
+//    else if ( AcY>-8000&& data < 140 && data1 < 120 && data2 > 120 && data3 > 120 && data4 > 120)
+//  { ch = "K";
+//    String name = Firebase.pushString("logs", ch);
+//    delay(2000);
+//  }
+  else if ( AcY>-8000&& data < 140 && data1 < 120 && data2 < 120 && data3 > 120 && data4 > 120)
   { ch = "L";
     String name = Firebase.pushString("logs", ch);
     delay(2000);
